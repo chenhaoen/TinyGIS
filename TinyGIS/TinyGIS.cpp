@@ -1,53 +1,74 @@
 #include "TinyGIS.h"
 
-#include <QFileDialog>
-
 #include <qgsmapcanvas.h>
-#include <qgsrasterlayer.h>
-#include <qgsvectorlayer.h>
+#include <qgslayertree.h>
+#include <qgslayertreeview.h>
+#include <qgslayertreemodel.h>
+#include "qgsgui.h"
+#include "qgssourceselectprovider.h"
+#include "qgssourceselectproviderregistry.h"
 
 TinyGIS::TinyGIS(QWidget* parent)
 	: QMainWindow(parent)
+	, m_layerTree(new QgsLayerTree())
 	, m_mapCanvas(new QgsMapCanvas(this))
+	, m_layerTreeModel(new QgsLayerTreeModel(m_layerTree, this))
+	, m_layerTreeView(new QgsLayerTreeView(this))
 {
 	ui.setupUi(this);
 
+	m_layerTreeView->setModel(m_layerTreeModel);
+
+	ui.dockWidget->setWidget(m_layerTreeView);
+
 	setCentralWidget(m_mapCanvas);
-
-	connect(ui.actionAdd_Raster_Layer, &QAction::triggered, this, &TinyGIS::slotAddRasterLayer);
-	connect(ui.actionAdd_Vector_Layer, &QAction::triggered, this, &TinyGIS::slotAddVectorLayer);
 }
 
-void TinyGIS::slotAddRasterLayer()
+TinyGIS::~TinyGIS()
 {
-	const QString& fileName = QFileDialog::getOpenFileName(this, QStringLiteral("Ìí¼ÓÕ¤¸ñÍ¼²ã"), {}, QString("Geo Tiff(*.tif)"));
-
-	if (fileName.isEmpty())
-	{
-		return;
-	}
-
-	QgsRasterLayer* layer = new QgsRasterLayer(fileName);
-	auto layers = m_mapCanvas->layers();
-	layers.append(layer);
-	m_mapCanvas->setLayers(layers);
-	m_mapCanvas->setExtent(layer->extent());
-	m_mapCanvas->refresh();
+	delete m_layerTree;
 }
 
-void TinyGIS::slotAddVectorLayer()
+void TinyGIS::on_actionAdd_Raster_Layer_triggered()
 {
-	const QString& fileName = QFileDialog::getOpenFileName(this, QStringLiteral("Ìí¼ÓÊ¸Á¿Í¼²ã"), {}, QString("Shape file(*.shp)"));
+	dataSourceManager("gdal");
+}
 
-	if (fileName.isEmpty())
+void TinyGIS::on_actionAdd_Vector_Layer_triggered()
+{
+	dataSourceManager("ogr");
+}
+
+void TinyGIS::on_actionAbout_Qt_triggered()
+{
+	QApplication::aboutQt();
+}
+
+void TinyGIS::on_actionAbout_QGIS_triggered()
+{
+
+}
+
+void TinyGIS::dataSourceManager(const QString& providerKey)
+{
+	const QList<QgsSourceSelectProvider*>& sourceSelectProviders = QgsGui::sourceSelectProviderRegistry()->providers();
+	for (QgsSourceSelectProvider* provider : sourceSelectProviders)
 	{
-		return;
-	}
+		QgsAbstractDataSourceWidget* dlg = provider->createDataSourceWidget(this);
+		if (!dlg)
+		{
+			continue;
+		}
 
-	QgsVectorLayer* layer = new QgsVectorLayer(fileName);
-	auto layers = m_mapCanvas->layers();
-	layers.append(layer);
-	m_mapCanvas->setLayers(layers);
-	m_mapCanvas->setExtent(layer->extent());
-	m_mapCanvas->refresh();
+		if (providerKey == provider->providerKey())
+		{
+			dlg->exec();
+			delete dlg;
+			return;
+		}
+		else
+		{
+			delete dlg;
+		}
+	}
 }

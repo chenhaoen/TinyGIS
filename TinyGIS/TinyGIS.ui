@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>720</width>
+    <height>426</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,18 +19,26 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>720</width>
      <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
+   <widget class="QMenu" name="menuLayer">
     <property name="title">
-     <string>File</string>
+     <string>&amp;Layer</string>
     </property>
     <addaction name="actionAdd_Raster_Layer"/>
     <addaction name="actionAdd_Vector_Layer"/>
    </widget>
-   <addaction name="menuFile"/>
+   <widget class="QMenu" name="menu_About">
+    <property name="title">
+     <string>&amp;About</string>
+    </property>
+    <addaction name="actionAbout_QGIS"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
+   <addaction name="menuLayer"/>
+   <addaction name="menu_About"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -41,24 +49,39 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionRaster">
-   <property name="text">
-    <string>打开栅格文件</string>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="windowTitle">
+    <string>Layer View</string>
    </property>
-  </action>
-  <action name="actionVector">
-   <property name="text">
-    <string>打开矢量文件</string>
-   </property>
-  </action>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents"/>
+  </widget>
   <action name="actionAdd_Raster_Layer">
    <property name="text">
-    <string>Add Raster Layer</string>
+    <string>Add &amp;Raster Layer</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+R</string>
    </property>
   </action>
   <action name="actionAdd_Vector_Layer">
    <property name="text">
-    <string>Add Vector Layer</string>
+    <string>Add &amp;Vector Layer</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionAbout_QGIS">
+   <property name="text">
+    <string>About Q&amp;GIS</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About &amp;Qt</string>
    </property>
   </action>
  </widget>
