@@ -3,6 +3,8 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_TinyGIS.h"
 
+class QgsMapCanvas;
+
 class TinyGIS : public QMainWindow
 {
     Q_OBJECT
@@ -10,6 +12,13 @@ class TinyGIS : public QMainWindow
 public:
     TinyGIS(QWidget *parent = Q_NULLPTR);
 
+private slots:
+    void slotAddRasterLayer();
+    void slotAddVectorLayer();
+
+
 private:
     Ui::TinyGISClass ui;
+
+    QgsMapCanvas* m_mapCanvas;
 };
