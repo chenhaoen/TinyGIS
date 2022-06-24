@@ -2,6 +2,33 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh">
 <context>
+    <name>AboutTinyGISDlgClass</name>
+    <message>
+        <source>Author</source>
+        <translation>作者</translation>
+    </message>
+    <message>
+        <source>Qt version</source>
+        <translation>Qt版本</translation>
+    </message>
+    <message>
+        <source>chenhaoen</source>
+        <translation>陈豪恩</translation>
+    </message>
+    <message>
+        <source>QGIS version</source>
+        <translation>QGIS版本</translation>
+    </message>
+    <message>
+        <source>mail</source>
+        <translation>邮箱</translation>
+    </message>
+    <message>
+        <source>About TinyGIS</source>
+        <translation>关于TinyGIS</translation>
+    </message>
+</context>
+<context>
     <name>TinyGISClass</name>
     <message>
         <source>TinyGIS</source>
@@ -28,20 +55,16 @@
         <translation>添加栅格图层（&amp;R）</translation>
     </message>
     <message>
-        <source>&amp;About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About Q&amp;GIS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Layer View</source>
-        <translation type="unfinished"></translation>
+        <translation>图层视图</translation>
+    </message>
+    <message>
+        <source>About &amp;TinyGIS</source>
+        <translation>关于TinyGIS（&amp;T)</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>帮助（&amp;H）</translation>
     </message>
 </context>
 </TS>

@@ -32,10 +32,9 @@
    </widget>
    <widget class="QMenu" name="menu_About">
     <property name="title">
-     <string>&amp;About</string>
+     <string>&amp;Help</string>
     </property>
-    <addaction name="actionAbout_QGIS"/>
-    <addaction name="actionAbout_Qt"/>
+    <addaction name="actionAbout_TinyGIS"/>
    </widget>
    <addaction name="menuLayer"/>
    <addaction name="menu_About"/>
@@ -74,14 +73,12 @@
     <string notr="true">Ctrl+V</string>
    </property>
   </action>
-  <action name="actionAbout_QGIS">
+  <action name="actionAbout_TinyGIS">
    <property name="text">
-    <string>About Q&amp;GIS</string>
+    <string>About &amp;TinyGIS</string>
    </property>
-  </action>
-  <action name="actionAbout_Qt">
-   <property name="text">
-    <string>About &amp;Qt</string>
+   <property name="shortcut">
+    <string notr="true">Ctrl+T</string>
    </property>
   </action>
  </widget>

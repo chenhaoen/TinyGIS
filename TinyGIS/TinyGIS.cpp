@@ -4,9 +4,11 @@
 #include <qgslayertree.h>
 #include <qgslayertreeview.h>
 #include <qgslayertreemodel.h>
-#include "qgsgui.h"
-#include "qgssourceselectprovider.h"
-#include "qgssourceselectproviderregistry.h"
+#include <qgsgui.h>
+#include <qgssourceselectprovider.h>
+#include <qgssourceselectproviderregistry.h>
+
+#include "AboutTinyGISDlg.h"
 
 TinyGIS::TinyGIS(QWidget* parent)
 	: QMainWindow(parent)
@@ -39,14 +41,10 @@ void TinyGIS::on_actionAdd_Vector_Layer_triggered()
 	dataSourceManager("ogr");
 }
 
-void TinyGIS::on_actionAbout_Qt_triggered()
+void TinyGIS::on_actionAbout_TinyGIS_triggered()
 {
-	QApplication::aboutQt();
-}
-
-void TinyGIS::on_actionAbout_QGIS_triggered()
-{
-
+	AboutTinyGISDlg dlg(this);
+	dlg.exec();
 }
 
 void TinyGIS::dataSourceManager(const QString& providerKey)

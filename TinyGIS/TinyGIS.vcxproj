@@ -113,13 +113,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="TinyGIS.qrc" />
+    <QtUic Include="AboutTinyGISDlg.ui" />
     <QtUic Include="TinyGIS.ui" />
     <QtMoc Include="TinyGIS.h" />
+    <ClCompile Include="AboutTinyGISDlg.cpp" />
     <ClCompile Include="TinyGIS.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="TinyGIS_zh_Hans.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="AboutTinyGISDlg.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

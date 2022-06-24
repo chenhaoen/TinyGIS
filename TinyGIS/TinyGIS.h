@@ -20,8 +20,7 @@ private slots:
     void on_actionAdd_Raster_Layer_triggered();
     void on_actionAdd_Vector_Layer_triggered();
 
-    void on_actionAbout_Qt_triggered();
-    void on_actionAbout_QGIS_triggered();
+    void on_actionAbout_TinyGIS_triggered();
 
 private:
     void dataSourceManager(const QString& providerKey);
