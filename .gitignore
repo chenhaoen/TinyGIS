@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /TinyGIS/user-history.db
+/TinyGIS/TinyGIS_zh_Hans.qm

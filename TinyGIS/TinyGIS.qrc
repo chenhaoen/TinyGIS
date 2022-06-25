@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="TinyGIS">
+    <qresource prefix="/TinyGIS">
+        <file>images/panda.png</file>
     </qresource>
 </RCC>

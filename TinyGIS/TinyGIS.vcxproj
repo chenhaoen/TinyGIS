@@ -102,29 +102,36 @@
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DebugInformationFormat>None</DebugInformationFormat>
-      <Optimization>MaxSpeed</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="TinyGIS.qrc" />
     <QtUic Include="AboutTinyGISDlg.ui" />
+    <QtUic Include="OptionsDlg.ui" />
     <QtUic Include="TinyGIS.ui" />
     <QtMoc Include="TinyGIS.h" />
     <ClCompile Include="AboutTinyGISDlg.cpp" />
+    <ClCompile Include="OptionsDlg.cpp" />
     <ClCompile Include="TinyGIS.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtTranslation Include="TinyGIS_zh_Hans.ts" />
+    <QtTranslation Include="TinyGIS_zh_Hans.ts">
+      <QmOutputDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(outdir)</QmOutputDir>
+    </QtTranslation>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AboutTinyGISDlg.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="OptionsDlg.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

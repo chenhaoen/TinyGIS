@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QDialog>
-#include "ui_AboutTinyGISDlg.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class AboutTinyGISDlgClass; };

@@ -2,7 +2,9 @@
 
 #include <qgsconfig.h>
 
-AboutTinyGISDlg::AboutTinyGISDlg(QWidget *parent)
+#include "ui_AboutTinyGISDlg.h"
+
+AboutTinyGISDlg::AboutTinyGISDlg(QWidget* parent)
 	: QDialog(parent)
 	, ui(new Ui::AboutTinyGISDlgClass())
 {

@@ -43,6 +43,9 @@
     <ClCompile Include="AboutTinyGISDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OptionsDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="TinyGIS_zh_Hans.ts">
@@ -53,9 +56,15 @@
     <QtMoc Include="AboutTinyGISDlg.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="OptionsDlg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="AboutTinyGISDlg.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="OptionsDlg.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

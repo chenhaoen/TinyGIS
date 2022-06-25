@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>TinyGIS</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="TinyGIS.qrc">
+    <normaloff>:/TinyGIS/images/panda.png</normaloff>:/TinyGIS/images/panda.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -36,7 +40,14 @@
     </property>
     <addaction name="actionAbout_TinyGIS"/>
    </widget>
+   <widget class="QMenu" name="menu_Settings">
+    <property name="title">
+     <string>&amp;Settings</string>
+    </property>
+    <addaction name="action_Options"/>
+   </widget>
    <addaction name="menuLayer"/>
+   <addaction name="menu_Settings"/>
    <addaction name="menu_About"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -79,6 +90,14 @@
    </property>
    <property name="shortcut">
     <string notr="true">Ctrl+T</string>
+   </property>
+  </action>
+  <action name="action_Options">
+   <property name="text">
+    <string>&amp;Options</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+O</string>
    </property>
   </action>
  </widget>

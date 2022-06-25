@@ -29,6 +29,32 @@
     </message>
 </context>
 <context>
+    <name>OptionsDlg</name>
+    <message>
+        <source>English</source>
+        <translation>英语</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>中文</translation>
+    </message>
+</context>
+<context>
+    <name>OptionsDlgClass</name>
+    <message>
+        <source>Genarel</source>
+        <translation>常规</translation>
+    </message>
+    <message>
+        <source>language</source>
+        <translation>语言</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>选项</translation>
+    </message>
+</context>
+<context>
     <name>TinyGISClass</name>
     <message>
         <source>TinyGIS</source>
@@ -65,6 +91,14 @@
     <message>
         <source>&amp;Help</source>
         <translation>帮助（&amp;H）</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>设置（&amp;S）</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation>选项（&amp;O）</translation>
     </message>
 </context>
 </TS>
