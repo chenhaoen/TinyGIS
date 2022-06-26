@@ -57,8 +57,18 @@
     <addaction name="separator"/>
     <addaction name="action_Exit_TinyGIS"/>
    </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="action_Pan_Map"/>
+    <addaction name="actionPan_Map_To_Selection"/>
+    <addaction name="actionZoom_In"/>
+    <addaction name="actionZoom_Out"/>
+   </widget>
    <addaction name="menu_Project"/>
    <addaction name="menuLayer"/>
+   <addaction name="menu_View"/>
    <addaction name="menu_Settings"/>
    <addaction name="menu_About"/>
   </widget>
@@ -147,6 +157,26 @@
   <action name="action_Close">
    <property name="text">
     <string>&amp;Close</string>
+   </property>
+  </action>
+  <action name="action_Pan_Map">
+   <property name="text">
+    <string>&amp;Pan Map</string>
+   </property>
+  </action>
+  <action name="actionPan_Map_To_Selection">
+   <property name="text">
+    <string>Pan Map To Selection</string>
+   </property>
+  </action>
+  <action name="actionZoom_In">
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="text">
+    <string>Zoom Out</string>
    </property>
   </action>
  </widget>

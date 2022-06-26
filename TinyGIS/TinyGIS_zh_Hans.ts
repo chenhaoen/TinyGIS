@@ -154,5 +154,25 @@
         <source>[*]%1 - TinyGIS</source>
         <translation type="vanished">[*]%1 - TinyGIS</translation>
     </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>视图（&amp;V）</translation>
+    </message>
+    <message>
+        <source>&amp;Pan Map</source>
+        <translation>平移地图（&amp;P）</translation>
+    </message>
+    <message>
+        <source>Pan Map To Selection</source>
+        <translation>平移地图到所选内容</translation>
+    </message>
+    <message>
+        <source>Zoom In</source>
+        <translation>放大</translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation>缩小</translation>
+    </message>
 </context>
 </TS>

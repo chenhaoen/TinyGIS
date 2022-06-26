@@ -12,6 +12,8 @@
 #include <qgssourceselectproviderregistry.h>
 #include <qgsrasterlayer.h>
 #include <qgsvectorlayer.h>
+#include <qgsmaptoolpan.h>
+#include <qgsmaptoolzoom.h>
 
 #include "AboutTinyGISDlg.h"
 #include "ui_TinyGIS.h"
@@ -32,15 +34,16 @@ TinyGIS::TinyGIS(QWidget* parent)
 	m_layerTreeView->setModel(m_layerTreeModel);
 	ui->dockWidget->setWidget(m_layerTreeView);
 
-	on_action_Close_triggered();
+	on_action_New_triggered();
 	setCentralWidget(m_mapCanvas);
 	showMaximized();
+
+	connectAll();
 }
 
 TinyGIS::~TinyGIS()
 {
 	delete ui;
-	qDeleteAll(m_layers);
 }
 
 TinyGIS* TinyGIS::instance()
@@ -72,7 +75,7 @@ void TinyGIS::on_action_New_triggered()
 		return;
 	}
 
-	CloseProject();
+	closeProject();
 	refreshMapCanvas();
 	setWindowTitle();
 	setWindowModified(false);
@@ -85,7 +88,7 @@ void TinyGIS::on_action_Open_triggered()
 		return;
 	}
 
-	CloseProject();
+	closeProject();
 
 	const QString& fileName = QFileDialog::getOpenFileName(this, tr("Open Project File"), {}, QString("TinyGIS Project File(*.xml)"));
 	if (fileName.isEmpty())
@@ -95,7 +98,7 @@ void TinyGIS::on_action_Open_triggered()
 
 	QFileInfo fileInfo(fileName);
 	Project::instance()->setFile(fileName);
-	Project::instance()->setName(fileInfo.fileName());
+	Project::instance()->setName(fileInfo.baseName());
 	Project::instance()->read();
 
 	refreshMapCanvas();
@@ -105,7 +108,7 @@ void TinyGIS::on_action_Open_triggered()
 
 void TinyGIS::on_action_Save_triggered()
 {
-	if (!SaveProject())
+	if (!saveProject())
 	{
 		return;
 	}
@@ -115,16 +118,58 @@ void TinyGIS::on_action_Save_triggered()
 
 void TinyGIS::on_action_Close_triggered()
 {
-	CloseProject();
-
-	refreshMapCanvas();
-	setWindowTitle();
-	setWindowModified(false);
+	on_action_New_triggered();
 }
 
 void TinyGIS::on_action_Exit_TinyGIS_triggered()
 {
 	qApp->exit();
+}
+
+void TinyGIS::on_action_Pan_Map_triggered()
+{
+	if (!m_mapToolPan)
+	{
+		m_mapToolPan =std::make_unique<QgsMapToolPan>(m_mapCanvas);
+		m_mapToolPan->setAction(ui->action_Pan_Map);
+   }
+
+	m_mapCanvas->setMapTool(m_mapToolPan.get());
+}
+
+void TinyGIS::on_actionPan_Map_To_Selection_triggered()
+{
+	QgsMapLayer* currentLayer = m_mapCanvas->currentLayer();
+
+	if (!currentLayer)
+	{
+		return;
+	}
+
+	m_mapCanvas->setExtent(currentLayer->extent());
+	m_mapCanvas->refresh();
+}
+
+void TinyGIS::on_actionZoom_In_triggered()
+{
+	if (!m_mapToolZoomIn)
+	{
+		m_mapToolZoomIn =  std::make_unique < QgsMapToolZoom>(m_mapCanvas, false);
+		m_mapToolZoomIn->setAction(ui->actionZoom_In);
+	}
+
+	m_mapCanvas->setMapTool(m_mapToolZoomIn.get());
+}
+
+void TinyGIS::on_actionZoom_Out_triggered()
+{
+	if (!m_mapToolZoomOut)
+	{
+		m_mapToolZoomOut = std::make_unique < QgsMapToolZoom>(m_mapCanvas, true);
+		m_mapToolZoomOut->setAction(ui->actionZoom_Out);
+	}
+
+	m_mapCanvas->setMapTool(m_mapToolZoomOut.get());
 }
 
 void TinyGIS::on_actionAdd_Raster_Layer_triggered()
@@ -241,7 +286,7 @@ void TinyGIS::setWindowTitle()
 	QMainWindow::setWindowTitle(tr("[*]%1 - TinyGIS").arg(Project::instance()->name()));
 }
 
-bool TinyGIS::SaveProject()
+bool TinyGIS::saveProject()
 {
 	if (Project::instance()->file().isEmpty())
 	{
@@ -263,7 +308,7 @@ bool TinyGIS::SaveProject()
 	return true;
 }
 
-void TinyGIS::CloseProject()
+void TinyGIS::closeProject()
 {
 	Project::instance()->reset();
 }
@@ -278,7 +323,7 @@ bool TinyGIS::windowModified()
 	switch (QMessageBox::information(this, QString(), tr("Save current project?"), QMessageBox::Ok | QMessageBox::No | QMessageBox::Cancel))
 	{
 	case  QMessageBox::Ok:
-		SaveProject();
+		saveProject();
 		break;
 	case  QMessageBox::No:
 		break;
@@ -289,4 +334,9 @@ bool TinyGIS::windowModified()
 	}
 
 	return true;
+}
+
+void TinyGIS::connectAll()
+{
+	connect(m_layerTreeView, &QgsLayerTreeView::currentLayerChanged, m_mapCanvas, &QgsMapCanvas::setCurrentLayer);
 }

@@ -22,6 +22,11 @@ void Project::reset()
 {
 	m_name = m_untitledProject;
 	m_file.clear();
+
+	for (QgsLayerTreeLayer* treeLayer : m_layerTree->findLayers())
+	{
+		delete treeLayer->layer();
+	}
 	m_layerTree->removeAllChildren();
 }
 
