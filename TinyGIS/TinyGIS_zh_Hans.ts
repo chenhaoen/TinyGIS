@@ -55,6 +55,32 @@
     </message>
 </context>
 <context>
+    <name>Project</name>
+    <message>
+        <source>Untitled Project</source>
+        <translation>未命名工程</translation>
+    </message>
+</context>
+<context>
+    <name>TinyGIS</name>
+    <message>
+        <source>[*]%1 - TinyGIS</source>
+        <translation>[*]%1 - TinyGIS</translation>
+    </message>
+    <message>
+        <source>Open Project File</source>
+        <translation>打开工程文件</translation>
+    </message>
+    <message>
+        <source>Save Project File</source>
+        <translation>保存工程文件</translation>
+    </message>
+    <message>
+        <source>Save current project?</source>
+        <translation>是否保存当前工程？</translation>
+    </message>
+</context>
+<context>
     <name>TinyGISClass</name>
     <message>
         <source>TinyGIS</source>
@@ -99,6 +125,34 @@
     <message>
         <source>&amp;Options</source>
         <translation>选项（&amp;O）</translation>
+    </message>
+    <message>
+        <source>&amp;Project</source>
+        <translation>工程（&amp;P）</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>打开（&amp;O）</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>保存（&amp;S）</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>新建（&amp;N）</translation>
+    </message>
+    <message>
+        <source>&amp;Exit TinyGIS</source>
+        <translation>退出TinyGIS（&amp;E）</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>关闭（&amp;C）</translation>
+    </message>
+    <message>
+        <source>[*]%1 - TinyGIS</source>
+        <translation type="vanished">[*]%1 - TinyGIS</translation>
     </message>
 </context>
 </TS>

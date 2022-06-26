@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /TinyGIS/user-history.db
 /TinyGIS/TinyGIS_zh_Hans.qm
+/TinyGIS/symbology-style.db
