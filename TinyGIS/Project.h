@@ -5,6 +5,7 @@
 class QgsLayerTree;
 class QgsLayerTreeLayer;
 class QDomElement;
+class QgsMapLayer;
 
 class Project :public QObject
 {
@@ -39,6 +40,11 @@ public:
 
 	bool read();
 	bool  write() const;
+
+	void addLayer(QgsMapLayer*);
+
+signals:
+	void layerTreeChanged();
 
 private:
 	Project(QObject* parent = nullptr);

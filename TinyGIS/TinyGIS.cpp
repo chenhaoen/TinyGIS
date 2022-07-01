@@ -2,14 +2,13 @@
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDockWidget>
+#include <QTextEdit>
 
 #include <qgsmapcanvas.h>
 #include <qgslayertree.h>
 #include <qgslayertreeview.h>
 #include <qgslayertreemodel.h>
-#include <qgsgui.h>
-#include <qgssourceselectprovider.h>
-#include <qgssourceselectproviderregistry.h>
 #include <qgsrasterlayer.h>
 #include <qgsvectorlayer.h>
 #include <qgsmaptoolpan.h>
@@ -28,11 +27,19 @@ TinyGIS::TinyGIS(QWidget* parent)
 	, m_mapCanvas(new QgsMapCanvas(this))
 	, m_layerTreeModel(new QgsLayerTreeModel(Project::instance()->layerTree(), this))
 	, m_layerTreeView(new QgsLayerTreeView(this))
+	, m_dockWidgetLayerTreeView(new QDockWidget(this))
+	, m_dockWidgetLog(new QDockWidget(this))
+	, m_textEditLog(new QTextEdit(this))
 {
 	ui->setupUi(this);
 
+	m_textEditLog->setReadOnly(true);
+	m_dockWidgetLog->setWidget(m_textEditLog);
+	addDockWidget(Qt::DockWidgetArea::BottomDockWidgetArea, m_dockWidgetLog);
+
 	m_layerTreeView->setModel(m_layerTreeModel);
-	ui->dockWidget->setWidget(m_layerTreeView);
+	m_dockWidgetLayerTreeView->setWidget(m_layerTreeView);
+	addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, m_dockWidgetLayerTreeView);
 
 	on_action_New_triggered();
 	setCentralWidget(m_mapCanvas);
@@ -55,13 +62,23 @@ TinyGIS* TinyGIS::instance()
 	return sInstance;
 }
 
+void TinyGIS::addLog(const QString& text)
+{
+	QString newString;
+
+	newString += m_textEditLog->toPlainText();
+	newString+='['+QDateTime::currentDateTime().toString()+"] "+ text + '\n';
+
+	m_textEditLog->setText(newString);
+}
+
 void TinyGIS::changeEvent(QEvent* event)
 {
 	switch (event->type())
 	{
 	case QEvent::LanguageChange:
 		ui->retranslateUi(this);
-		setWindowTitle();
+		retranslateUi();
 		break;
 	default:
 		QMainWindow::changeEvent(event);
@@ -76,7 +93,6 @@ void TinyGIS::on_action_New_triggered()
 	}
 
 	closeProject();
-	refreshMapCanvas();
 	setWindowTitle();
 	setWindowModified(false);
 }
@@ -101,7 +117,8 @@ void TinyGIS::on_action_Open_triggered()
 	Project::instance()->setName(fileInfo.baseName());
 	Project::instance()->read();
 
-	refreshMapCanvas();
+	addLog(tr("Open project successfully."));
+
 	setWindowTitle();
 	setWindowModified(false);
 }
@@ -174,32 +191,54 @@ void TinyGIS::on_actionZoom_Out_triggered()
 
 void TinyGIS::on_actionAdd_Raster_Layer_triggered()
 {
-	QgsAbstractDataSourceWidget* dlg = getDataSourceWidget("gdal");
+	const QStringList& fileNames = QFileDialog::getOpenFileNames(this, tr("Add raster layer"), QString(), QString("GTiff(*.tif;*.tiff)"));
 
-	if (!dlg)
+	if (fileNames.isEmpty())
 	{
 		return;
 	}
 
-	connect(dlg, &QgsAbstractDataSourceWidget::addRasterLayers, this, &TinyGIS::slotAddRasterLayers);
+	QSignalBlocker signalBlocker(Project::instance());
+	for (const QString& fileName : fileNames)
+	{
+		QFileInfo fileInfo(fileName);
+		QgsRasterLayer* layer = new QgsRasterLayer(fileName, fileInfo.baseName());
 
-	dlg->exec();
-	delete dlg;
+		if (!layer->isValid())
+		{
+			return;
+		}
+
+		Project::instance()->addLayer(layer);
+	}
+
+	refreshMapCanvas();
 }
 
 void TinyGIS::on_actionAdd_Vector_Layer_triggered()
 {
-	QgsAbstractDataSourceWidget* dlg = getDataSourceWidget("ogr");
+	const QStringList& fileNames = QFileDialog::getOpenFileNames(this, tr("Add vector layer"), QString(), QString("ESRI Shapefile(*.shp);;GPKG(*.gpkg)"));
 
-	if (!dlg)
+	if(fileNames.isEmpty())
 	{
 		return;
 	}
 
-	connect(dlg, &QgsAbstractDataSourceWidget::addVectorLayers, this, &TinyGIS::slotAddVectorLayers);
+	QSignalBlocker signalBlocker(Project::instance());
+	for (const QString& fileName : fileNames)
+	{
+		QFileInfo fileInfo(fileName);
+		QgsVectorLayer* layer = new QgsVectorLayer(fileName, fileInfo.baseName());
 
-	dlg->exec();
-	delete dlg;
+		if (!layer->isValid())
+		{
+			return;
+		}
+
+		Project::instance()->addLayer(layer);
+	}
+
+	refreshMapCanvas();
 }
 
 void TinyGIS::on_action_Options_triggered()
@@ -212,67 +251,6 @@ void TinyGIS::on_actionAbout_TinyGIS_triggered()
 {
 	AboutTinyGISDlg dlg(this);
 	dlg.exec();
-}
-
-void TinyGIS::slotAddRasterLayers(const QStringList& layersList)
-{
-	if (layersList.empty())
-	{
-		return;
-	}
-
-	for (const QString& layerFile : layersList)
-	{
-		QFileInfo fileInfo(layerFile);
-		QgsRasterLayer* layer = new QgsRasterLayer(layerFile, fileInfo.baseName());
-
-		Project::instance()->layerTree()->addLayer(layer);
-	}
-	setWindowModified(true);
-	refreshMapCanvas();
-}
-
-void TinyGIS::slotAddVectorLayers(const QStringList& layerList, const QString& encoding, const QString& dataSourceType)
-{
-	if (dataSourceType != "file")
-	{
-		return;
-	}
-
-	for (const QString& layerPath : layerList)
-	{
-		QFileInfo fileInfo(layerPath);
-		QgsVectorLayer* layer = new QgsVectorLayer(layerPath, fileInfo.baseName());
-
-		Project::instance()->layerTree()->addLayer(layer);
-	}
-
-	setWindowModified(true);
-	refreshMapCanvas();
-}
-
-QgsAbstractDataSourceWidget* TinyGIS::getDataSourceWidget(const QString& providerKey)
-{
-	const QList<QgsSourceSelectProvider*>& sourceSelectProviders = QgsGui::sourceSelectProviderRegistry()->providers();
-	for (QgsSourceSelectProvider* provider : sourceSelectProviders)
-	{
-		QgsAbstractDataSourceWidget* dlg = provider->createDataSourceWidget(this);
-		if (!dlg)
-		{
-			continue;
-		}
-
-		if (providerKey == provider->providerKey())
-		{
-			return dlg;
-		}
-		else
-		{
-			delete dlg;
-		}
-	}
-
-	return nullptr;
 }
 
 void TinyGIS::refreshMapCanvas()
@@ -297,7 +275,9 @@ bool TinyGIS::saveProject()
 			return false;
 		}
 
+		QFileInfo fileInfo(fileName);
 		Project::instance()->setFile(fileName);
+		Project::instance()->setName(fileInfo.baseName());
 	}
 
 	if (!Project::instance()->write())
@@ -338,5 +318,14 @@ bool TinyGIS::windowModified()
 
 void TinyGIS::connectAll()
 {
+	connect(Project::instance(), &Project::layerTreeChanged, this, &TinyGIS::refreshMapCanvas);
+
 	connect(m_layerTreeView, &QgsLayerTreeView::currentLayerChanged, m_mapCanvas, &QgsMapCanvas::setCurrentLayer);
+}
+
+void TinyGIS::retranslateUi()
+{
+	m_dockWidgetLayerTreeView->setWindowTitle(tr("Layer View"));
+	m_dockWidgetLog->setWindowTitle(tr("Log"));
+	setWindowTitle();
 }

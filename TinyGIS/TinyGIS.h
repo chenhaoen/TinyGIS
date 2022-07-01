@@ -7,13 +7,13 @@ namespace Ui
 	class TinyGISClass;
 }
 
+class QDockWidget;
 class QgsMapCanvas;
 class QgsLayerTreeView;
 class QgsLayerTreeModel;
-class QgsAbstractDataSourceWidget;
-class QgsMapLayer;
 class QgsMapToolPan;
 class QgsMapToolZoom;
+class QTextEdit;
 
 class TinyGIS : public QMainWindow
 {
@@ -21,6 +21,8 @@ class TinyGIS : public QMainWindow
 
 public:
 	static  TinyGIS* instance();
+
+	void addLog(const QString& text);
 
 protected:
 	void changeEvent(QEvent*) override;
@@ -43,14 +45,9 @@ private slots:
 	void on_action_Options_triggered();
 
 	void on_actionAbout_TinyGIS_triggered();
-
-	void slotAddRasterLayers(const QStringList& layersList);
-	void slotAddVectorLayers(const QStringList& layerList, const QString& encoding, const QString& dataSourceType);
 private:
 	TinyGIS(QWidget* parent = Q_NULLPTR);
 	~TinyGIS();
-
-	QgsAbstractDataSourceWidget* getDataSourceWidget(const QString& providerKey);
 
 	void refreshMapCanvas();
 
@@ -62,6 +59,8 @@ private:
 	bool windowModified();
 
 	void connectAll();
+
+	void retranslateUi();
 private:
 	static TinyGIS* sInstance;
 
@@ -74,4 +73,9 @@ private:
  	std::unique_ptr< QgsMapToolPan> m_mapToolPan;
 	std::unique_ptr < QgsMapToolZoom> m_mapToolZoomIn;
 	std::unique_ptr < QgsMapToolZoom> m_mapToolZoomOut;
+
+	QDockWidget* m_dockWidgetLayerTreeView;
+
+	QTextEdit* m_textEditLog;
+	QDockWidget* m_dockWidgetLog;
 };

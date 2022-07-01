@@ -21,11 +21,15 @@
     </message>
     <message>
         <source>mail</source>
-        <translation>邮箱</translation>
+        <translation type="vanished">邮箱</translation>
     </message>
     <message>
         <source>About TinyGIS</source>
         <translation>关于TinyGIS</translation>
+    </message>
+    <message>
+        <source>email</source>
+        <translation>邮箱</translation>
     </message>
 </context>
 <context>
@@ -79,6 +83,30 @@
         <source>Save current project?</source>
         <translation>是否保存当前工程？</translation>
     </message>
+    <message>
+        <source>Layer View</source>
+        <translation>图层视图</translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation>日志</translation>
+    </message>
+    <message>
+        <source>Open project successfully</source>
+        <translation type="vanished">打开工程成功</translation>
+    </message>
+    <message>
+        <source>Add vector layer</source>
+        <translation>添加矢量图层</translation>
+    </message>
+    <message>
+        <source>Add raster layer</source>
+        <translation>添加栅格图层</translation>
+    </message>
+    <message>
+        <source>Open project successfully.</source>
+        <translation>打开工程成功。</translation>
+    </message>
 </context>
 <context>
     <name>TinyGISClass</name>
@@ -108,7 +136,7 @@
     </message>
     <message>
         <source>Layer View</source>
-        <translation>图层视图</translation>
+        <translation type="vanished">图层视图</translation>
     </message>
     <message>
         <source>About &amp;TinyGIS</source>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>720</width>
-    <height>426</height>
+    <width>702</width>
+    <height>436</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>720</width>
+     <width>702</width>
      <height>23</height>
     </rect>
    </property>
@@ -81,15 +81,6 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QDockWidget" name="dockWidget">
-   <property name="windowTitle">
-    <string>Layer View</string>
-   </property>
-   <attribute name="dockWidgetArea">
-    <number>1</number>
-   </attribute>
-   <widget class="QWidget" name="dockWidgetContents"/>
-  </widget>
   <action name="actionAdd_Raster_Layer">
    <property name="text">
     <string>Add &amp;Raster Layer</string>
@@ -109,9 +100,6 @@
   <action name="actionAbout_TinyGIS">
    <property name="text">
     <string>About &amp;TinyGIS</string>
-   </property>
-   <property name="shortcut">
-    <string notr="true">Ctrl+T</string>
    </property>
   </action>
   <action name="action_Options">
