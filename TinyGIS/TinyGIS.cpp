@@ -37,6 +37,12 @@ TinyGIS::TinyGIS(QWidget* parent)
 	m_dockWidgetLog->setWidget(m_textEditLog);
 	addDockWidget(Qt::DockWidgetArea::BottomDockWidgetArea, m_dockWidgetLog);
 
+	m_layerTreeModel->setFlag(QgsLayerTreeModel::AllowNodeRename);
+	m_layerTreeModel->setFlag(QgsLayerTreeModel::AllowNodeChangeVisibility);
+	m_layerTreeModel->setFlag(QgsLayerTreeModel::ShowLegendAsTree);
+	m_layerTreeModel->setFlag(QgsLayerTreeModel::UseEmbeddedWidgets);
+	m_layerTreeModel->setFlag(QgsLayerTreeModel::UseTextFormatting);
+	m_layerTreeModel->setAutoCollapseLegendNodes(10);
 	m_layerTreeView->setModel(m_layerTreeModel);
 	m_dockWidgetLayerTreeView->setWidget(m_layerTreeView);
 	addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, m_dockWidgetLayerTreeView);
@@ -64,10 +70,9 @@ TinyGIS* TinyGIS::instance()
 
 void TinyGIS::addLog(const QString& text)
 {
-	QString newString;
+	QString newString = m_textEditLog->toPlainText();
 
-	newString += m_textEditLog->toPlainText();
-	newString+='['+QDateTime::currentDateTime().toString()+"] "+ text + '\n';
+	newString += '[' + QDateTime::currentDateTime().toString() + ']' + text + '\n';
 
 	m_textEditLog->setText(newString);
 }
@@ -130,12 +135,14 @@ void TinyGIS::on_action_Save_triggered()
 		return;
 	}
 
+	addLog(tr("Save project successfully."));
 	setWindowModified(false);
 }
 
 void TinyGIS::on_action_Close_triggered()
 {
 	on_action_New_triggered();
+	addLog(tr("Close project successfully."));
 }
 
 void TinyGIS::on_action_Exit_TinyGIS_triggered()
@@ -147,9 +154,9 @@ void TinyGIS::on_action_Pan_Map_triggered()
 {
 	if (!m_mapToolPan)
 	{
-		m_mapToolPan =std::make_unique<QgsMapToolPan>(m_mapCanvas);
+		m_mapToolPan = std::make_unique<QgsMapToolPan>(m_mapCanvas);
 		m_mapToolPan->setAction(ui->action_Pan_Map);
-   }
+	}
 
 	m_mapCanvas->setMapTool(m_mapToolPan.get());
 }
@@ -171,7 +178,7 @@ void TinyGIS::on_actionZoom_In_triggered()
 {
 	if (!m_mapToolZoomIn)
 	{
-		m_mapToolZoomIn =  std::make_unique < QgsMapToolZoom>(m_mapCanvas, false);
+		m_mapToolZoomIn = std::make_unique < QgsMapToolZoom>(m_mapCanvas, false);
 		m_mapToolZoomIn->setAction(ui->actionZoom_In);
 	}
 
@@ -189,6 +196,21 @@ void TinyGIS::on_actionZoom_Out_triggered()
 	m_mapCanvas->setMapTool(m_mapToolZoomOut.get());
 }
 
+void TinyGIS::on_actionZoom_Last_triggered()
+{
+	m_mapCanvas->zoomToPreviousExtent();
+}
+
+void TinyGIS::on_actionZoom_Next_triggered()
+{
+	m_mapCanvas->zoomToNextExtent();
+}
+
+void TinyGIS::on_actionRefresh_triggered()
+{
+	m_mapCanvas->refresh();
+}
+
 void TinyGIS::on_actionAdd_Raster_Layer_triggered()
 {
 	const QStringList& fileNames = QFileDialog::getOpenFileNames(this, tr("Add raster layer"), QString(), QString("GTiff(*.tif;*.tiff)"));
@@ -198,7 +220,7 @@ void TinyGIS::on_actionAdd_Raster_Layer_triggered()
 		return;
 	}
 
-	QSignalBlocker signalBlocker(Project::instance());
+	QSignalBlocker signalBlocker(Project::instance()->layerTree());
 	for (const QString& fileName : fileNames)
 	{
 		QFileInfo fileInfo(fileName);
@@ -219,12 +241,12 @@ void TinyGIS::on_actionAdd_Vector_Layer_triggered()
 {
 	const QStringList& fileNames = QFileDialog::getOpenFileNames(this, tr("Add vector layer"), QString(), QString("ESRI Shapefile(*.shp);;GPKG(*.gpkg)"));
 
-	if(fileNames.isEmpty())
+	if (fileNames.isEmpty())
 	{
 		return;
 	}
 
-	QSignalBlocker signalBlocker(Project::instance());
+	QSignalBlocker signalBlocker(Project::instance()->layerTree());
 	for (const QString& fileName : fileNames)
 	{
 		QFileInfo fileInfo(fileName);
@@ -251,6 +273,32 @@ void TinyGIS::on_actionAbout_TinyGIS_triggered()
 {
 	AboutTinyGISDlg dlg(this);
 	dlg.exec();
+}
+
+void TinyGIS::on_layerTree_ItemPressed(const QModelIndex& index)
+{
+	QgsMapLayer* layer = m_layerTreeView->currentLayer();
+
+	if (!layer && !layer->isValid())
+	{
+		return;
+	}
+
+	if (qApp->mouseButtons() == Qt::MouseButton::RightButton)
+	{
+		QMenu menu;
+
+		QAction* actionZoomToLayer = new QAction(tr("Zoom to Layer"), &menu);
+		connect(actionZoomToLayer, &QAction::triggered, this, &TinyGIS::on_actionPan_Map_To_Selection_triggered);
+
+		QAction* actionRemoveLayer = new QAction(QIcon(":/TinyGIS/images/remove"), tr("Remove layer"), &menu);
+		connect(actionRemoveLayer, &QAction::triggered, this, [this, layer] {Project::instance()->removeLayer(layer); });
+
+		menu.addAction(actionZoomToLayer);
+		menu.addAction(actionRemoveLayer);
+
+		menu.exec(QCursor::pos());
+	}
 }
 
 void TinyGIS::refreshMapCanvas()
@@ -318,9 +366,18 @@ bool TinyGIS::windowModified()
 
 void TinyGIS::connectAll()
 {
-	connect(Project::instance(), &Project::layerTreeChanged, this, &TinyGIS::refreshMapCanvas);
-
 	connect(m_layerTreeView, &QgsLayerTreeView::currentLayerChanged, m_mapCanvas, &QgsMapCanvas::setCurrentLayer);
+	connect(m_layerTreeView, &QAbstractItemView::pressed, this, &TinyGIS::on_layerTree_ItemPressed);
+
+	auto lambdaSetModified = [this] { setWindowModified(true); };
+	connect(m_layerTreeView->layerTreeModel()->rootGroup(), &QgsLayerTreeNode::addedChildren,
+		this, lambdaSetModified);
+	connect(m_layerTreeView->layerTreeModel()->rootGroup(), &QgsLayerTreeNode::addedChildren,
+		this, &TinyGIS::refreshMapCanvas);
+	connect(m_layerTreeView->layerTreeModel()->rootGroup(), &QgsLayerTreeNode::removedChildren,
+		this, lambdaSetModified);
+	connect(m_layerTreeView->layerTreeModel()->rootGroup(), &QgsLayerTreeNode::addedChildren,
+		this, &TinyGIS::refreshMapCanvas);
 }
 
 void TinyGIS::retranslateUi()

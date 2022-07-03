@@ -107,6 +107,22 @@
         <source>Open project successfully.</source>
         <translation>打开工程成功。</translation>
     </message>
+    <message>
+        <source>Save project successfully.</source>
+        <translation>保存工程成功。</translation>
+    </message>
+    <message>
+        <source>Close project successfully.</source>
+        <translation>关闭工程成功。</translation>
+    </message>
+    <message>
+        <source>Zoom to Layer</source>
+        <translation>缩放至图层</translation>
+    </message>
+    <message>
+        <source>Remove layer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TinyGISClass</name>
@@ -201,6 +217,34 @@
     <message>
         <source>Zoom Out</source>
         <translation>缩小</translation>
+    </message>
+    <message>
+        <source>Zoom Last</source>
+        <translation>上一视图</translation>
+    </message>
+    <message>
+        <source>Zoom Next</source>
+        <translation>下一视图</translation>
+    </message>
+    <message>
+        <source>Ctrl+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+V</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+O</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

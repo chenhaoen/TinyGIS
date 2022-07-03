@@ -65,6 +65,9 @@
     <addaction name="actionPan_Map_To_Selection"/>
     <addaction name="actionZoom_In"/>
     <addaction name="actionZoom_Out"/>
+    <addaction name="actionZoom_Last"/>
+    <addaction name="actionZoom_Next"/>
+    <addaction name="actionRefresh"/>
    </widget>
    <addaction name="menu_Project"/>
    <addaction name="menuLayer"/>
@@ -79,46 +82,83 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="action_New"/>
+   <addaction name="action_Open"/>
+   <addaction name="action_Save"/>
+   <addaction name="separator"/>
+   <addaction name="action_Pan_Map"/>
+   <addaction name="actionZoom_In"/>
+   <addaction name="actionZoom_Out"/>
+   <addaction name="actionZoom_Last"/>
+   <addaction name="actionZoom_Next"/>
+   <addaction name="actionRefresh"/>
+   <addaction name="separator"/>
+   <addaction name="actionAdd_Raster_Layer"/>
+   <addaction name="actionAdd_Vector_Layer"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd_Raster_Layer">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/raster.svg</normaloff>:/TinyGIS/images/raster.svg</iconset>
+   </property>
    <property name="text">
     <string>Add &amp;Raster Layer</string>
    </property>
    <property name="shortcut">
-    <string notr="true">Ctrl+R</string>
+    <string>Ctrl+R</string>
    </property>
   </action>
   <action name="actionAdd_Vector_Layer">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/vector.svg</normaloff>:/TinyGIS/images/vector.svg</iconset>
+   </property>
    <property name="text">
     <string>Add &amp;Vector Layer</string>
    </property>
    <property name="shortcut">
-    <string notr="true">Ctrl+V</string>
+    <string>Ctrl+V</string>
    </property>
   </action>
   <action name="actionAbout_TinyGIS">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/panda.png</normaloff>:/TinyGIS/images/panda.png</iconset>
+   </property>
    <property name="text">
     <string>About &amp;TinyGIS</string>
    </property>
   </action>
   <action name="action_Options">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/options.svg</normaloff>:/TinyGIS/images/options.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Options</string>
    </property>
    <property name="shortcut">
-    <string notr="true">Ctrl+O</string>
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="action_Open">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/project_open.svg</normaloff>:/TinyGIS/images/project_open.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Open</string>
    </property>
    <property name="shortcut">
-    <string notr="true">Ctrl+P</string>
+    <string>Ctrl+P</string>
    </property>
   </action>
   <action name="action_Save">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/project_save.svg</normaloff>:/TinyGIS/images/project_save.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Save</string>
    </property>
@@ -127,6 +167,10 @@
    </property>
   </action>
   <action name="action_New">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/project_new.svg</normaloff>:/TinyGIS/images/project_new.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;New</string>
    </property>
@@ -143,11 +187,19 @@
    </property>
   </action>
   <action name="action_Close">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/project_close.svg</normaloff>:/TinyGIS/images/project_close.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Close</string>
    </property>
   </action>
   <action name="action_Pan_Map">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/pan.svg</normaloff>:/TinyGIS/images/pan.svg</iconset>
+   </property>
    <property name="text">
     <string>&amp;Pan Map</string>
    </property>
@@ -158,13 +210,48 @@
    </property>
   </action>
   <action name="actionZoom_In">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/zoom_in.svg</normaloff>:/TinyGIS/images/zoom_in.svg</iconset>
+   </property>
    <property name="text">
     <string>Zoom In</string>
    </property>
   </action>
   <action name="actionZoom_Out">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/zoom_out.svg</normaloff>:/TinyGIS/images/zoom_out.svg</iconset>
+   </property>
    <property name="text">
     <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionZoom_Last">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/zoom_last.svg</normaloff>:/TinyGIS/images/zoom_last.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Last</string>
+   </property>
+  </action>
+  <action name="actionZoom_Next">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/zoom_next.svg</normaloff>:/TinyGIS/images/zoom_next.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Next</string>
+   </property>
+  </action>
+  <action name="actionRefresh">
+   <property name="icon">
+    <iconset resource="TinyGIS.qrc">
+     <normaloff>:/TinyGIS/images/refresh.svg</normaloff>:/TinyGIS/images/refresh.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Refresh</string>
    </property>
   </action>
  </widget>

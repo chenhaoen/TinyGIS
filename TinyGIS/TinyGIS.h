@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QAbstractItemModel>
 
 namespace Ui
 {
@@ -38,6 +39,9 @@ private slots:
 	void on_actionPan_Map_To_Selection_triggered();
 	void on_actionZoom_In_triggered();
 	void on_actionZoom_Out_triggered();
+	void on_actionZoom_Last_triggered();
+	void on_actionZoom_Next_triggered();
+	void on_actionRefresh_triggered();
 
 	void on_actionAdd_Raster_Layer_triggered();
 	void on_actionAdd_Vector_Layer_triggered();
@@ -45,6 +49,8 @@ private slots:
 	void on_action_Options_triggered();
 
 	void on_actionAbout_TinyGIS_triggered();
+
+	void on_layerTree_ItemPressed(const QModelIndex& index);
 private:
 	TinyGIS(QWidget* parent = Q_NULLPTR);
 	~TinyGIS();

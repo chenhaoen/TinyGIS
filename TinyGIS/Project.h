@@ -42,9 +42,7 @@ public:
 	bool  write() const;
 
 	void addLayer(QgsMapLayer*);
-
-signals:
-	void layerTreeChanged();
+	void removeLayer(QgsMapLayer*);
 
 private:
 	Project(QObject* parent = nullptr);

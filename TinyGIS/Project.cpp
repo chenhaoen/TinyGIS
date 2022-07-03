@@ -28,7 +28,6 @@ void Project::reset()
 		delete treeLayer->layer();
 	}
 	m_layerTree->removeAllChildren();
-	emit layerTreeChanged();
 }
 
 bool Project::read()
@@ -80,8 +79,6 @@ bool Project::read()
 
 		const QString& layerName = layerElement.attribute(m_elementName);
 		const QString& layerFile = layerElement.attribute(m_elementFile);
-
-		QSignalBlocker signalBlocker(this);
 		switch (type)
 		{
 		case QgsMapLayerType::RasterLayer:
@@ -112,8 +109,6 @@ bool Project::read()
 		break;
 		}
 	}
-
-	emit layerTreeChanged();
 
 	return true;
 }
@@ -164,7 +159,12 @@ void  Project::addLayer(QgsMapLayer* layer)
 	}
 
 	m_layerTree->addLayer(layer);
-	emit layerTreeChanged();
+}
+
+void Project::removeLayer(QgsMapLayer* layer)
+{
+  m_layerTree->removeLayer(layer);
+  delete layer;
 }
 
 Project::Project(QObject* parent)

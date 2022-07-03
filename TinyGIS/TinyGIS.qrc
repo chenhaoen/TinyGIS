@@ -1,5 +1,19 @@
 <RCC>
     <qresource prefix="/TinyGIS">
         <file>images/panda.png</file>
+        <file>images/project_new.svg</file>
+        <file>images/project_save.svg</file>
+        <file>images/refresh.svg</file>
+        <file>images/remove.svg</file>
+        <file>images/zoom_in.svg</file>
+        <file>images/zoom_last.svg</file>
+        <file>images/zoom_next.svg</file>
+        <file>images/zoom_out.svg</file>
+        <file>images/options.svg</file>
+        <file>images/pan.svg</file>
+        <file>images/project_close.svg</file>
+        <file>images/project_open.svg</file>
+        <file>images/raster.svg</file>
+        <file>images/vector.svg</file>
     </qresource>
 </RCC>
