@@ -8,13 +8,16 @@ namespace Ui
 	class TinyGISClass;
 }
 
+//Qt class
 class QDockWidget;
+class QTextEdit;
+
+//QGIS class
 class QgsMapCanvas;
 class QgsLayerTreeView;
 class QgsLayerTreeModel;
 class QgsMapToolPan;
 class QgsMapToolZoom;
-class QTextEdit;
 
 class TinyGIS : public QMainWindow
 {
@@ -25,8 +28,12 @@ public:
 
 	void addLog(const QString& text);
 
+	void openProject(const QString& fileName);
 protected:
 	void changeEvent(QEvent*) override;
+
+	void dragEnterEvent(QDragEnterEvent*);
+	void dropEvent(QDropEvent*) override;
 
 private slots:
 	void on_action_New_triggered();

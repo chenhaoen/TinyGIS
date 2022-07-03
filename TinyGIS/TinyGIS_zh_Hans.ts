@@ -121,7 +121,15 @@
     </message>
     <message>
         <source>Remove layer</source>
-        <translation type="unfinished"></translation>
+        <translation>移除图层</translation>
+    </message>
+    <message>
+        <source>Failed to open project.</source>
+        <translation>打开工程失败。</translation>
+    </message>
+    <message>
+        <source>The project file is not a valid file.</source>
+        <translation>工程文件不是有效的文件。</translation>
     </message>
 </context>
 <context>
@@ -227,24 +235,8 @@
         <translation>下一视图</translation>
     </message>
     <message>
-        <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+V</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ctrl+P</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>刷新</translation>
     </message>
 </context>
 </TS>

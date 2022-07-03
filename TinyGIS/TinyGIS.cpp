@@ -47,9 +47,11 @@ TinyGIS::TinyGIS(QWidget* parent)
 	m_dockWidgetLayerTreeView->setWidget(m_layerTreeView);
 	addDockWidget(Qt::DockWidgetArea::LeftDockWidgetArea, m_dockWidgetLayerTreeView);
 
+	retranslateUi();
 	on_action_New_triggered();
 	setCentralWidget(m_mapCanvas);
 	showMaximized();
+	setAcceptDrops(true);
 
 	connectAll();
 }
@@ -90,6 +92,71 @@ void TinyGIS::changeEvent(QEvent* event)
 	}
 }
 
+void TinyGIS::dragEnterEvent(QDragEnterEvent* event)
+{
+  const QList<QUrl>& urls=	event->mimeData()->urls();
+
+  if (urls.isEmpty())
+  {
+	  QMainWindow::dragEnterEvent(event);
+	  return;
+  }
+
+  bool allUrlIsValid = true;
+  for (const QUrl& url : urls)
+  {
+	  QFileInfo fileInfo(url.toLocalFile());
+
+	  const QString& suffix = fileInfo.suffix();
+	  if (suffix != "gpkg" && suffix != "shp" && suffix != "tif" && suffix != "tiff")
+	  {
+		  allUrlIsValid = false;
+		  break;
+	  }
+}
+
+  if (allUrlIsValid)
+  {
+	  event->acceptProposedAction();
+  }
+}
+
+void TinyGIS::dropEvent(QDropEvent* event)
+{
+	const QList<QUrl>& urls = event->mimeData()->urls();
+
+	for (const QUrl& url : urls)
+	{
+		QFileInfo fileInfo(url.toLocalFile());
+
+		const QString& suffix = fileInfo.suffix();
+		//raster file
+		if (suffix == "gpkg" || suffix == "shp" )
+		{
+			QgsVectorLayer* layer = new QgsVectorLayer(fileInfo.absoluteFilePath(), fileInfo.baseName());
+
+			if (!layer->isValid())
+			{
+				continue;
+			}
+
+			Project::instance()->addLayer(layer);
+		}
+
+		if ( suffix == "tif" || suffix == "tiff")
+		{
+			QgsRasterLayer* layer = new QgsRasterLayer(fileInfo.absoluteFilePath(), fileInfo.baseName());
+
+			if (!layer->isValid())
+			{
+				continue;
+			}
+
+			Project::instance()->addLayer(layer);
+		}
+	}
+}
+
 void TinyGIS::on_action_New_triggered()
 {
 	if (!windowModified())
@@ -117,15 +184,7 @@ void TinyGIS::on_action_Open_triggered()
 		return;
 	}
 
-	QFileInfo fileInfo(fileName);
-	Project::instance()->setFile(fileName);
-	Project::instance()->setName(fileInfo.baseName());
-	Project::instance()->read();
-
-	addLog(tr("Open project successfully."));
-
-	setWindowTitle();
-	setWindowModified(false);
+	openProject(fileName);
 }
 
 void TinyGIS::on_action_Save_triggered()
@@ -137,6 +196,7 @@ void TinyGIS::on_action_Save_triggered()
 
 	addLog(tr("Save project successfully."));
 	setWindowModified(false);
+	setWindowTitle();
 }
 
 void TinyGIS::on_action_Close_triggered()
@@ -165,7 +225,7 @@ void TinyGIS::on_actionPan_Map_To_Selection_triggered()
 {
 	QgsMapLayer* currentLayer = m_mapCanvas->currentLayer();
 
-	if (!currentLayer)
+	if (!currentLayer||!currentLayer->isValid())
 	{
 		return;
 	}
@@ -385,4 +445,30 @@ void TinyGIS::retranslateUi()
 	m_dockWidgetLayerTreeView->setWindowTitle(tr("Layer View"));
 	m_dockWidgetLog->setWindowTitle(tr("Log"));
 	setWindowTitle();
+}
+
+void TinyGIS::openProject(const QString& fileName)
+{
+	QFileInfo fileInfo(fileName);
+	if (!fileInfo.exists() || fileInfo.suffix() != "xml")
+	{
+		addLog(tr("The project file is not a valid file."));
+		return;
+	}
+
+	closeProject();
+	Project::instance()->setFile(fileName);
+	Project::instance()->setName(fileInfo.baseName());
+
+	if (Project::instance()->read())
+	{
+		addLog(tr("Open project successfully."));
+	}
+	else
+	{
+		addLog(tr("Failed to open project."));
+	}
+
+	setWindowTitle();
+	setWindowModified(false);
 }

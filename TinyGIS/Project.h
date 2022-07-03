@@ -2,9 +2,10 @@
 
 #include <QObject>
 
+class QDomElement;
+
 class QgsLayerTree;
 class QgsLayerTreeLayer;
-class QDomElement;
 class QgsMapLayer;
 
 class Project :public QObject

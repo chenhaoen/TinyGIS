@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
-    <height>436</height>
+    <width>718</width>
+    <height>475</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>702</width>
+     <width>718</width>
      <height>23</height>
     </rect>
    </property>
@@ -68,6 +68,7 @@
     <addaction name="actionZoom_Last"/>
     <addaction name="actionZoom_Next"/>
     <addaction name="actionRefresh"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menu_Project"/>
    <addaction name="menuLayer"/>
@@ -75,7 +76,7 @@
    <addaction name="menu_Settings"/>
    <addaction name="menu_About"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
+  <widget class="QToolBar" name="toolBarProject">
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -85,18 +86,38 @@
    <addaction name="action_New"/>
    <addaction name="action_Open"/>
    <addaction name="action_Save"/>
-   <addaction name="separator"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBarView">
+   <property name="windowTitle">
+    <string notr="true">toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
    <addaction name="action_Pan_Map"/>
    <addaction name="actionZoom_In"/>
    <addaction name="actionZoom_Out"/>
    <addaction name="actionZoom_Last"/>
    <addaction name="actionZoom_Next"/>
    <addaction name="actionRefresh"/>
-   <addaction name="separator"/>
+  </widget>
+  <widget class="QToolBar" name="toolBarLayer">
+   <property name="windowTitle">
+    <string notr="true">toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
    <addaction name="actionAdd_Raster_Layer"/>
    <addaction name="actionAdd_Vector_Layer"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd_Raster_Layer">
    <property name="icon">
     <iconset resource="TinyGIS.qrc">
@@ -106,7 +127,7 @@
     <string>Add &amp;Raster Layer</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+R</string>
+    <string notr="true">Ctrl+R</string>
    </property>
   </action>
   <action name="actionAdd_Vector_Layer">
@@ -118,7 +139,7 @@
     <string>Add &amp;Vector Layer</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+V</string>
+    <string notr="true">Ctrl+V</string>
    </property>
   </action>
   <action name="actionAbout_TinyGIS">
@@ -128,6 +149,9 @@
    </property>
    <property name="text">
     <string>About &amp;TinyGIS</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="action_Options">
@@ -139,7 +163,7 @@
     <string>&amp;Options</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+O</string>
+    <string notr="true">Ctrl+O</string>
    </property>
   </action>
   <action name="action_Open">
@@ -151,7 +175,7 @@
     <string>&amp;Open</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+P</string>
+    <string notr="true">Ctrl+P</string>
    </property>
   </action>
   <action name="action_Save">
@@ -194,6 +218,9 @@
    <property name="text">
     <string>&amp;Close</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="action_Pan_Map">
    <property name="icon">
@@ -203,10 +230,16 @@
    <property name="text">
     <string>&amp;Pan Map</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionPan_Map_To_Selection">
    <property name="text">
     <string>Pan Map To Selection</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionZoom_In">
@@ -217,6 +250,9 @@
    <property name="text">
     <string>Zoom In</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionZoom_Out">
    <property name="icon">
@@ -225,6 +261,9 @@
    </property>
    <property name="text">
     <string>Zoom Out</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
   <action name="actionZoom_Last">
@@ -235,6 +274,9 @@
    <property name="text">
     <string>Zoom Last</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionZoom_Next">
    <property name="icon">
@@ -244,6 +286,9 @@
    <property name="text">
     <string>Zoom Next</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionRefresh">
    <property name="icon">
@@ -252,6 +297,9 @@
    </property>
    <property name="text">
     <string>Refresh</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
    </property>
   </action>
  </widget>
