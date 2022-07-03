@@ -10,5 +10,8 @@ O4W_ QT_ Plugins = your QT_ Plugins directory
 Add %osgeo4w%\bin %qgis_ DIR%\bin %OSGEO4W%\apps\Qt5\bin to path  
 Copy all the files under the osgeo4w\bin directory into the directory of the generated executable file
 
+screenshot
+![image](screenshot.png)
+
 To do  
 1,Plugins
