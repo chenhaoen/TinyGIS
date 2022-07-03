@@ -11,6 +11,4 @@ Add %osgeo4w%\bin %qgis_ DIR%\bin %OSGEO4W%\apps\Qt5\bin to path
 Copy all the files under the osgeo4w\bin directory into the directory of the generated executable file
 
 To do  
-1,Layer tree event.
-2,MainWindow drop event.
-3,Add icon.
+1,Plugins
