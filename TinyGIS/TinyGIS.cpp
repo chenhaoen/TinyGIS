@@ -94,31 +94,31 @@ void TinyGIS::changeEvent(QEvent* event)
 
 void TinyGIS::dragEnterEvent(QDragEnterEvent* event)
 {
-  const QList<QUrl>& urls=	event->mimeData()->urls();
+	const QList<QUrl>& urls = event->mimeData()->urls();
 
-  if (urls.isEmpty())
-  {
-	  QMainWindow::dragEnterEvent(event);
-	  return;
-  }
+	if (urls.isEmpty())
+	{
+		QMainWindow::dragEnterEvent(event);
+		return;
+	}
 
-  bool allUrlIsValid = true;
-  for (const QUrl& url : urls)
-  {
-	  QFileInfo fileInfo(url.toLocalFile());
+	bool allUrlIsValid = true;
+	for (const QUrl& url : urls)
+	{
+		QFileInfo fileInfo(url.toLocalFile());
 
-	  const QString& suffix = fileInfo.suffix();
-	  if (suffix != "gpkg" && suffix != "shp" && suffix != "tif" && suffix != "tiff")
-	  {
-		  allUrlIsValid = false;
-		  break;
-	  }
-}
+		const QString& suffix = fileInfo.suffix();
+		if (suffix != "gpkg" && suffix != "shp" && suffix != "tif" && suffix != "tiff")
+		{
+			allUrlIsValid = false;
+			break;
+		}
+	}
 
-  if (allUrlIsValid)
-  {
-	  event->acceptProposedAction();
-  }
+	if (allUrlIsValid)
+	{
+		event->acceptProposedAction();
+	}
 }
 
 void TinyGIS::dropEvent(QDropEvent* event)
@@ -131,26 +131,16 @@ void TinyGIS::dropEvent(QDropEvent* event)
 
 		const QString& suffix = fileInfo.suffix();
 		//raster file
-		if (suffix == "gpkg" || suffix == "shp" )
+		if (suffix == "gpkg" || suffix == "shp")
 		{
 			QgsVectorLayer* layer = new QgsVectorLayer(fileInfo.absoluteFilePath(), fileInfo.baseName());
-
-			if (!layer->isValid())
-			{
-				continue;
-			}
 
 			Project::instance()->addLayer(layer);
 		}
 
-		if ( suffix == "tif" || suffix == "tiff")
+		if (suffix == "tif" || suffix == "tiff")
 		{
 			QgsRasterLayer* layer = new QgsRasterLayer(fileInfo.absoluteFilePath(), fileInfo.baseName());
-
-			if (!layer->isValid())
-			{
-				continue;
-			}
 
 			Project::instance()->addLayer(layer);
 		}
@@ -225,7 +215,7 @@ void TinyGIS::on_actionPan_Map_To_Selection_triggered()
 {
 	QgsMapLayer* currentLayer = m_mapCanvas->currentLayer();
 
-	if (!currentLayer||!currentLayer->isValid())
+	if (!currentLayer || !currentLayer->isValid())
 	{
 		return;
 	}
@@ -286,11 +276,6 @@ void TinyGIS::on_actionAdd_Raster_Layer_triggered()
 		QFileInfo fileInfo(fileName);
 		QgsRasterLayer* layer = new QgsRasterLayer(fileName, fileInfo.baseName());
 
-		if (!layer->isValid())
-		{
-			return;
-		}
-
 		Project::instance()->addLayer(layer);
 	}
 
@@ -299,7 +284,7 @@ void TinyGIS::on_actionAdd_Raster_Layer_triggered()
 
 void TinyGIS::on_actionAdd_Vector_Layer_triggered()
 {
-	const QStringList& fileNames = QFileDialog::getOpenFileNames(this, tr("Add vector layer"), QString(), QString("ESRI Shapefile(*.shp);;GPKG(*.gpkg)"));
+	const QStringList& fileNames = QFileDialog::getOpenFileNames(this, tr("Add vector layer"), QString(), QString("ESRI Shapefile(*.shp);;GeoPackage(*.gpkg)"));
 
 	if (fileNames.isEmpty())
 	{
@@ -311,11 +296,6 @@ void TinyGIS::on_actionAdd_Vector_Layer_triggered()
 	{
 		QFileInfo fileInfo(fileName);
 		QgsVectorLayer* layer = new QgsVectorLayer(fileName, fileInfo.baseName());
-
-		if (!layer->isValid())
-		{
-			return;
-		}
 
 		Project::instance()->addLayer(layer);
 	}
