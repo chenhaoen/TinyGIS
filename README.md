@@ -11,7 +11,7 @@ Add %osgeo4w%\bin %qgis_ DIR%\bin %OSGEO4W%\apps\Qt5\bin to path
 Copy all the files under the osgeo4w\bin directory into the directory of the generated executable file
 
 screenshot
-![image](screenshot.png)
+![image](screenshot.PNG)
 
 To do  
 1,Plugins
