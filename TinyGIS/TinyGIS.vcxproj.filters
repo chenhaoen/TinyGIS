@@ -49,6 +49,12 @@
     <ClCompile Include="Project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qgis\qgsmeasuredialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qgis\qgsmeasuretool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="TinyGIS_zh_Hans.ts">
@@ -65,6 +71,12 @@
     <QtMoc Include="Project.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="qgis\qgsmeasuredialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="qgis\qgsmeasuretool.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="AboutTinyGISDlg.ui">
@@ -73,5 +85,10 @@
     <QtUic Include="OptionsDlg.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="qgis\ui_qgsmeasurebase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

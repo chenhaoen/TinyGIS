@@ -37,7 +37,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>5.15.2</QtInstall>
-    <QtModules>core;gui;widgets;xml</QtModules>
+    <QtModules>core;xml;gui;svg;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -120,6 +120,8 @@
     <ClCompile Include="AboutTinyGISDlg.cpp" />
     <ClCompile Include="OptionsDlg.cpp" />
     <ClCompile Include="Project.cpp" />
+    <ClCompile Include="qgis\qgsmeasuredialog.cpp" />
+    <ClCompile Include="qgis\qgsmeasuretool.cpp" />
     <ClCompile Include="TinyGIS.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -136,6 +138,15 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Project.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="qgis\qgsmeasuredialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="qgis\qgsmeasuretool.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="qgis\ui_qgsmeasurebase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

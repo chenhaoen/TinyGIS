@@ -18,6 +18,7 @@ class QgsLayerTreeView;
 class QgsLayerTreeModel;
 class QgsMapToolPan;
 class QgsMapToolZoom;
+class QgsMeasureTool;
 
 class TinyGIS : public QMainWindow
 {
@@ -49,6 +50,8 @@ private slots:
 	void on_actionZoom_Last_triggered();
 	void on_actionZoom_Next_triggered();
 	void on_actionRefresh_triggered();
+	void on_actionMeasure_Line_triggered();
+	void on_actionMeasure_Area_triggered();
 
 	void on_actionAdd_Raster_Layer_triggered();
 	void on_actionAdd_Vector_Layer_triggered();
@@ -86,6 +89,8 @@ private:
  	std::unique_ptr< QgsMapToolPan> m_mapToolPan;
 	std::unique_ptr < QgsMapToolZoom> m_mapToolZoomIn;
 	std::unique_ptr < QgsMapToolZoom> m_mapToolZoomOut;
+	std::unique_ptr< QgsMeasureTool> m_mapToolMeasureLine;
+	std::unique_ptr< QgsMeasureTool> m_mapToolMeasureArea;
 
 	QDockWidget* m_dockWidgetLayerTreeView;
 

@@ -14,6 +14,8 @@
 #include <qgsmaptoolpan.h>
 #include <qgsmaptoolzoom.h>
 
+#include "qgis/qgsmeasuretool.h"
+
 #include "AboutTinyGISDlg.h"
 #include "ui_TinyGIS.h"
 #include "OptionsDlg.h"
@@ -261,6 +263,28 @@ void TinyGIS::on_actionRefresh_triggered()
 	m_mapCanvas->refresh();
 }
 
+void TinyGIS::on_actionMeasure_Line_triggered()
+{
+	if (!m_mapToolMeasureLine)
+	{
+		m_mapToolMeasureLine = std::make_unique < QgsMeasureTool>(m_mapCanvas, false);
+		m_mapToolMeasureLine->setAction(ui->actionZoom_Out);
+	}
+
+	m_mapCanvas->setMapTool(m_mapToolMeasureLine.get());
+}
+
+void TinyGIS::on_actionMeasure_Area_triggered()
+{
+	if (!m_mapToolMeasureArea)
+	{
+		m_mapToolMeasureArea = std::make_unique < QgsMeasureTool>(m_mapCanvas, true);
+		m_mapToolMeasureArea->setAction(ui->actionZoom_Out);
+	}
+
+	m_mapCanvas->setMapTool(m_mapToolMeasureArea.get());
+}
+
 void TinyGIS::on_actionAdd_Raster_Layer_triggered()
 {
 	const QStringList& fileNames = QFileDialog::getOpenFileNames(this, tr("Add raster layer"), QString(), QString("GTiff(*.tif;*.tiff)"));
@@ -349,7 +373,14 @@ void TinyGIS::refreshMapCanvas()
 
 void TinyGIS::setWindowTitle()
 {
-	QMainWindow::setWindowTitle(tr("[*]%1 - TinyGIS").arg(Project::instance()->name()));
+	 QString projectName = Project::instance()->name();
+
+	if (projectName.isEmpty())
+	{
+		projectName = tr("Untitled Project");
+	}
+
+	QMainWindow::setWindowTitle(tr("[*]%1 - TinyGIS").arg(projectName));
 }
 
 bool TinyGIS::saveProject()

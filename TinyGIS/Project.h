@@ -62,7 +62,6 @@ private:
 	QString m_elementLayer;
 	QString m_elementGroup;
 	QString m_elementType;
-	QString m_untitledProject;
 
 	QString m_name;
 	QString m_file;

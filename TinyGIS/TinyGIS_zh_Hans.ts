@@ -62,7 +62,144 @@
     <name>Project</name>
     <message>
         <source>Untitled Project</source>
-        <translation>未命名工程</translation>
+        <translation type="vanished">未命名工程</translation>
+    </message>
+</context>
+<context>
+    <name>QgsMeasureBase</name>
+    <message>
+        <source>Measure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Segments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Horizontal Distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ellipsoidal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cartesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QgsMeasureDialog</name>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">新建（&amp;N）</translation>
+    </message>
+    <message>
+        <source>&amp;Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The calculations are based on:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cartesian calculation selected, so area is calculated using Cartesian calculations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No map projection set, so area is calculated using Cartesian calculations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Units are unknown.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both project CRS (%1) and measured area are in degrees, so area is calculated using Cartesian calculations in square degrees.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Project ellipsoidal calculation is selected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The coordinates are transformed to the chosen ellipsoid (%1), and the area is calculated in %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Project ellipsoidal calculation is not selected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Area is calculated in %1, based on project CRS (%2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Measure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value is converted from %1 to %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cartesian calculation selected, so distance is calculated using Cartesian calculations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No map projection set, so distance is calculated using Cartesian calculations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both project CRS (%1) and measured length are in degrees, so distance is calculated using Cartesian calculations in degrees.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The coordinates are transformed to the chosen ellipsoid (%1), and the distance is calculated in %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance is calculated in %1, based on project CRS (%2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Segments [%1]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Segments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>map units</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QgsMeasureTool</name>
+    <message>
+        <source>Incorrect Measure Results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This map is defined with a geographic coordinate system (latitude/longitude) but the map extents suggests that it is actually a projected coordinate system (e.g., Mercator). If so, the results from line or area measurements will be incorrect.&lt;/p&gt;&lt;p&gt;To fix this, explicitly set an appropriate map coordinate system using the &lt;tt&gt;Settings:Project Properties&lt;/tt&gt; menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transform error caught at the MeasureTool: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -130,6 +267,10 @@
     <message>
         <source>The project file is not a valid file.</source>
         <translation>工程文件不是有效的文件。</translation>
+    </message>
+    <message>
+        <source>Untitled Project</source>
+        <translation type="unfinished">未命名工程</translation>
     </message>
 </context>
 <context>
@@ -237,6 +378,14 @@
     <message>
         <source>Refresh</source>
         <translation>刷新</translation>
+    </message>
+    <message>
+        <source>Measure Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Measure Area</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

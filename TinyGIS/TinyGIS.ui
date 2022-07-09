@@ -69,6 +69,8 @@
     <addaction name="actionZoom_Next"/>
     <addaction name="actionRefresh"/>
     <addaction name="separator"/>
+    <addaction name="actionMeasure_Line"/>
+    <addaction name="actionMeasure_Area"/>
    </widget>
    <addaction name="menu_Project"/>
    <addaction name="menuLayer"/>
@@ -300,6 +302,16 @@
    </property>
    <property name="shortcut">
     <string notr="true"/>
+   </property>
+  </action>
+  <action name="actionMeasure_Line">
+   <property name="text">
+    <string>Measure Line</string>
+   </property>
+  </action>
+  <action name="actionMeasure_Area">
+   <property name="text">
+    <string>Measure Area</string>
    </property>
   </action>
  </widget>

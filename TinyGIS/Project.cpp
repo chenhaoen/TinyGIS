@@ -20,7 +20,7 @@ Project* Project::instance()
 
 void Project::reset()
 {
-	m_name = m_untitledProject;
+	m_name .clear();
 	m_file.clear();
 
 	for (QgsLayerTreeLayer* treeLayer : m_layerTree->findLayers())
@@ -176,8 +176,6 @@ Project::Project(QObject* parent)
 	, m_elementGroup("Group")
 	, m_elementLayer("Layer")
 	, m_elementType("Type")
-	, m_untitledProject(tr("Untitled Project"))
-	, m_name(m_untitledProject)
 {
 }
 
